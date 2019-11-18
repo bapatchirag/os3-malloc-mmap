@@ -32,13 +32,13 @@ void freeAllocMem(struct allocmem* ptr){
 }
 
 ///Pass a valid pointer (or NULL) to store the resultant into 
-struct allocmem* insertEnd(struct allocmem* ptr,struct allocmem** outVar){
+struct allocmem* insertAtEnd(struct allocmem* ptr,struct allocmem** outVar){
     if(ptr==NULL){
         struct allocmem* outAble = newAllocMem();
         if(outVar!=NULL) *outVar=outAble;
         return (outAble);
     }else{
-        ptr->next = insertEnd(ptr->next,outVar);
+        ptr->next = insertAtEnd(ptr->next,outVar);
         return ptr;
     }
 }
@@ -66,9 +66,9 @@ struct allocmem* findAndRemove(struct allocmem* ptr,void* searchPtr){
 
 
 
-void* smalloc(size_t size){
+void* mymalloc(size_t size){
     struct allocmem* info=NULL;
-    memlocs = insertEnd(memlocs,&info);
+    memlocs = insertAtEnd(memlocs,&info);
     if(info==NULL){
         ///Failed to initialize metadata info
         return NULL;
@@ -88,13 +88,13 @@ void* smalloc(size_t size){
 }
 
 
-void* scalloc(size_t size,int nmemb){
+void* mycalloc(size_t size,int nmemb){
     size_t isOverFlow = size*nmemb;
     if(size!=isOverFlow/nmemb){
         ///Overflow, dont try
         return NULL;
     }
-    void* newPtr = smalloc(isOverFlow);
+    void* newPtr = mymalloc(isOverFlow);
     if(newPtr==NULL){
         ///Failed to init
         return NULL;
@@ -107,7 +107,7 @@ void* scalloc(size_t size,int nmemb){
 }
 
 
-void sfree(void* ptr){
+void myfree(void* ptr){
     if(ptr==NULL)return;
     struct allocmem* info = find(memlocs,ptr);
     if(info==NULL) return;
@@ -117,8 +117,8 @@ void sfree(void* ptr){
 
 
 ///Violently Remove Everything
-void spurge(){
+void mypurge(){
     while(memlocs){
-        sfree(memlocs->ptr);
+        myfree(memlocs->ptr);
     }
 }
