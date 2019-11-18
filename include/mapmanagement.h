@@ -8,10 +8,10 @@ struct allocmem{
 
 struct allocmem *newAllocMem();
 
-void* smalloc(size_t size);
+void* mymalloc(size_t size);
 
-void* scalloc(size_t size,int nmemb);
+void* mycalloc(size_t size,int nmemb);
 
-void sfree(void* ptr);
+void myfree(void* ptr);
 
-void spurge();
+void mypurge();
