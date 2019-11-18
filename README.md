@@ -19,30 +19,30 @@ gcc -g -I include src/mapmanagement.c main.c -o main.out -lrc
 
 ## Functions
 
-### smalloc
+### mymalloc
 
-`void* smalloc(size_t size)`
+`void* mymalloc(size_t size)`
 
-### scalloc
+### mycalloc
 
-`void* scalloc(size_t size, int nmemb)`
+`void* mycalloc(size_t size, int nmemb)`
 
 Sets the data values to zero, mandatorily
 
-### sfree
+### myfree
 
-`void sfree(void* ptr)`
+`void myfree(void* ptr)`
 
-Only smalloc-ed or scalloc-ed variables are freed.
+Only mymalloc-ed or mycalloc-ed variables are freed.
 This way, there is no:
 
 1. Double frees
 2. freeing null
 3. freeing random locations
 
-### spurge
+### mypurge
 
-`void spurge()`
+`void mypurge()`
 
 Clean all allocated memory.
 Implemented because it was possible.
