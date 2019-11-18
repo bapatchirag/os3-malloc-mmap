@@ -2,10 +2,10 @@
 #include<mapmanagement.h>
 
 int main(){
-    float* a = smalloc(sizeof(float));
-    float* b = smalloc(sizeof(float));
-    float* c = smalloc(sizeof(float));
-    int* array = scalloc(sizeof(int),10);
+    float* a = mymalloc(sizeof(float));
+    float* b = mymalloc(sizeof(float));
+    float* c = mymalloc(sizeof(float));
+    int* array = mycalloc(sizeof(int),10);
     printf("Enter 2 numbers\n:");
     scanf("%f %f",b,c);
     *a = *b + *c;
@@ -14,7 +14,7 @@ int main(){
     printf("Original array\n:");
     for(int i=0;i<10;i++){
         printf("a[%d] = %d ",i,array[i]);
-        *(array+i) = i*i;
+        *(array+i) = i * *a;
     }
 
     //printf("")
@@ -24,7 +24,7 @@ int main(){
         fflush(NULL);
     }
 
-    sfree(a);
-    spurge();
+    myfree(a);
+    mypurge();
     return 0;
 }
